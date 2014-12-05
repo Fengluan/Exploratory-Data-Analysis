@@ -5,7 +5,7 @@ hpc$Sub_metering_2 <- as.numeric(as.character(hpc$Sub_metering_2))
 y <- hpc[wday(hpc$Date) == 5 | wday(hpc$Date) == 6 | wday(hpc$Date) == 7,]
 y$wday_time <- strptime(paste(wday(y$Date, label = T, abbr = T), y$Time), "%a %H:%M:%S")
 png(plot3.png)
-plot(y$wday_time, y$Sub_metering_1, type = "l", col = "black")
+plot(y$wday_time, y$Sub_metering_1, type = "l", col = "black", ylab = "Energy sub metering")
 lines(y$wday_time, y$Sub_metering_2, col = "red")
 lines(y$wday_time, y$Sub_metering_3, col = "blue")
 legend("topright", lty = c(1, 1, 1), col = c("black","red","blue"), legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3"))
