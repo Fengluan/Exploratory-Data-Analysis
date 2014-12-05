@@ -1,1 +1,12 @@
+library(lubridate)
 hpc <- read.table("household_power_consumption.txt", sep = ";", header = T)
+hpc$Sub_metering_1 <- as.numeric(as.character(hpc$Sub_metering_1))
+hpc$Sub_metering_2 <- as.numeric(as.character(hpc$Sub_metering_2))
+y <- hpc[wday(hpc$Date) == 5 | wday(hpc$Date) == 6 | wday(hpc$Date) == 7,]
+y$wday_time <- strptime(paste(wday(y$Date, label = T, abbr = T), y$Time), "%a %H:%M:%S")
+png(plot3.png)
+plot(y$wday_time, y$Sub_metering_1, type = "l", col = "black")
+lines(y$wday_time, y$Sub_metering_2, col = "red")
+lines(y$wday_time, y$Sub_metering_3, col = "blue")
+legend(“topright”, lty = c(1, 1, 1), col = c(“black”,”red","blue"), legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3"))
+dev.off()
